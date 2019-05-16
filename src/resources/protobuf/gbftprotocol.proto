@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ucsc.gbft.comm";
+option java_outer_classname = "GBFTCommProto";
+
+package gbftprotocol;
+
+service Consensus {
+  rpc startMessage (StartRequest) returns (ConfirmReply) {} // for LB to server
+  rpc confirmMessage (EndRequest) returns (ConfirmReply) {} // for server to LB
+  rpc claimMessage (ConsensusRequest) returns (ConfirmReply) {} // for server to server
+  rpc viewChange (ViewChangeRequest) returns (ConfirmReply) {} // for server to server or LB
+}
+
+message ConsensusRequest {
+  int32 masterId = 1;
+  int32 centerId = 2;
+  int32 viewId = 3;
+  int32 sequenceId = 4;
+  int32 consensusStage = 5;
+  double randomId = 6;
+  string key = 7;
+  string value = 8;
+}
+
+message ViewChangeRequest {
+  int32 centerId = 1;
+  int32 nextViewId = 2;
+  int32 targetCenterId = 3;
+}
+
+message StartRequest {
+  double randomId = 1;
+  string key = 2;
+  string value = 3;
+}
+
+message EndRequest {
+  int32 centerId = 1;
+  double randomId = 2;
+  string key = 3;
+  string value = 4;
+}
+
+message ConfirmReply {
+  int32 confirm = 1;
+}

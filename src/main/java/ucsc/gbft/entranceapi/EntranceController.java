@@ -15,9 +15,10 @@ public class EntranceController {
     @RequestMapping(value = "/gbft/{key}={value}")
     public DeferredResult<String> updateKV(@PathVariable String key, @PathVariable String value) {
         TargetKV item = new TargetKV(key, value);
+        System.out.println(key);
         DeferredResult<String> result = new DeferredResult<>(10000L);
         result.onTimeout(new Thread(()->{
-            result.setResult("time out");
+            result.setResult("timeout");
         }));
         synchronized (taskList) {
             taskList.insert(new TaskItem(item, Math.random(), result));

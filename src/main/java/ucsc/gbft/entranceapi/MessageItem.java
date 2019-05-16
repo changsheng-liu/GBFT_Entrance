@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageItem {
 
-    public boolean isViewChange() {
-        return false;
-    }
+    public boolean isViewChangeMessage;
+    public int centerId;
+    public double randomId;
+    public String key;
+    public String value;
+    public int nextMaster;
 }
